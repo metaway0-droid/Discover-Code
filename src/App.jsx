@@ -59,26 +59,26 @@ const RepoItem = ({ repo, index, isFavorite, onToggleFavorite, onShowReadme }) =
       transition={{ delay: index * 0.05 }}
       className="group glass-panel rounded-3xl border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent p-6 hover:border-brand-primary/40 hover:bg-white/[0.04] transition-all flex flex-col h-full relative"
     >
-      <div className="flex items-start justify-between mb-5">
-        <div className="flex items-center gap-4">
+      <div className="flex items-start justify-between mb-5 gap-4">
+        <div className="flex items-center gap-4 flex-1 min-w-0">
           <img 
             src={repo.owner.avatar_url} 
             alt={repo.owner.login}
-            className="w-12 h-12 rounded-2xl border border-white/10 group-hover:scale-105 transition-transform"
+            className="w-12 h-12 rounded-2xl border border-white/10 group-hover:scale-105 transition-transform shrink-0"
           />
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <h3 className="text-lg font-black text-white truncate group-hover:text-brand-primary transition-colors">
               {repo.name}
             </h3>
-            <p className="text-[10px] text-gray-500 font-bold flex items-center gap-1">
-              {repo.owner.login} <span className="w-1 h-1 rounded-full bg-green-500" />
+            <p className="text-[10px] text-gray-500 font-bold flex items-center gap-1 truncate">
+              {repo.owner.login} <span className="w-1 h-1 rounded-full bg-green-500 shrink-0" />
             </p>
           </div>
         </div>
         <button
           onClick={(e) => { e.stopPropagation(); onToggleFavorite(repo); }}
           className={cn(
-            "p-2.5 rounded-xl border transition-all active:scale-90",
+            "p-2.5 rounded-xl border transition-all active:scale-90 shrink-0",
             isFavorite 
               ? "bg-red-500/10 border-red-500/30 text-red-500" 
               : "bg-white/5 border-white/5 text-gray-600 hover:text-red-400"
