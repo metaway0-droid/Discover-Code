@@ -66,3 +66,18 @@
 
 ---
 *Last Updated: 2026-06-05 14:15*
+
+---
+
+## 🐞 5. 구글 번역 API CORS 에러 해결을 위한 서버사이드 프록시 도입 (2026-06-05)
+- **증상**: 프론트엔드(`src/App.jsx`)에서 직접 `translate.googleapis.com` API를 `fetch`로 호출할 때 브라우저 보안 정책(CORS)으로 인해 차단 및 네트워크 에러 발생.
+- **원인**: 구글 번역 API가 브라우저 환경에서의 직접적인 교차 출처(Cross-Origin) 호출을 허용하지 않음.
+- **해결**:
+  1. **[NEW] [api/translate.js](file:///Users/byunmose/Desktop/git_auto_info/api/translate.js)**: 서버사이드에서 번역 요청을 대행할 수 있는 프록시 서버리스 함수를 신설함.
+  2. **[MODIFY] [vite.config.js](file:///Users/byunmose/Desktop/git_auto_info/vite.config.js)**: 로컬 개발 환경에서 `/api/translate` 요청 시 모킹 라우터를 동적 임포트하여 실행되도록 로컬 미들웨어 확장 적용.
+  3. **[MODIFY] [src/App.jsx](file:///Users/byunmose/Desktop/git_auto_info/src/App.jsx)**: 기존 `translate.googleapis.com` API 직접 호출부 3곳을 모두 `/api/translate` 프록시 경로로 변경하여 브라우저 CORS 제약을 우회함.
+  4. 5분간 에지 캐싱(`Cache-Control`)을 적용하여 빈번한 번역 요청 시 불필요한 트래픽 유발을 억제하고 성능을 최적화함.
+
+---
+*Last Updated: 2026-06-05 19:50*
+

@@ -40,7 +40,7 @@ const RepoItem = ({ repo, index, isFavorite, onToggleFavorite, onShowReadme }) =
       if (!repo.description) return;
       setLoading(true);
       try {
-        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ko&dt=t&q=${encodeURIComponent(repo.description)}`);
+        const res = await fetch(`/api/translate?q=${encodeURIComponent(repo.description)}`);
         const data = await res.json();
         setTranslatedDesc(data[0].map(x => x[0]).join(''));
       } catch (err) {
@@ -194,7 +194,7 @@ const RepoDetailsModal = ({ repo, onClose }) => {
         .trim()
         .slice(0, 1500); // 넉넉하게 추출하여 요약 품질 향상
       
-      const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ko&dt=t&q=${encodeURIComponent(cleanText)}`);
+      const res = await fetch(`/api/translate?q=${encodeURIComponent(cleanText)}`);
       const data = await res.json();
       setSummary(data[0].map(x => x[0]).join(''));
     } catch (err) {
@@ -354,7 +354,7 @@ const RisingRepoCard = ({ repo, onShowReadme, index }) => {
       if (!repo.description) return;
       setLoading(true);
       try {
-        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ko&dt=t&q=${encodeURIComponent(repo.description)}`);
+        const res = await fetch(`/api/translate?q=${encodeURIComponent(repo.description)}`);
         const data = await res.json();
         setTranslatedDesc(data[0].map(x => x[0]).join(''));
       } catch (err) {

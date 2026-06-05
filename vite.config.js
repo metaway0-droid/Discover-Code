@@ -19,10 +19,11 @@ export default defineConfig(({ mode }) => {
         configureServer(server) {
           server.middlewares.use(async (req, res, next) => {
             const parsedUrl = url.parse(req.url, true);
-            if (parsedUrl.pathname === '/api/github') {
+            const pathname = parsedUrl.pathname;
+            if (pathname === '/api/github' || pathname === '/api/translate') {
               try {
-                // api/github.js 파일 경로 확인
-                const apiPath = path.resolve(process.cwd(), 'api/github.js');
+                const apiFileName = pathname === '/api/github' ? 'github.js' : 'translate.js';
+                const apiPath = path.resolve(process.cwd(), `api/${apiFileName}`);
                 // ESM 동적 임포트 실행 (캐싱 방지를 위해 파일 URL 형식으로 로드)
                 const { default: handler } = await import(url.pathToFileURL(apiPath).href);
 
