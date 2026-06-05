@@ -57,4 +57,12 @@
 - **홈페이지**: [https://litt.ly/aklabs](https://litt.ly/aklabs)
 
 ---
-*Last Updated: 2026-05-10 15:20*
+
+## 🐞 4. 토큰 만료 및 로컬 구동 장애 해결 (2026-06-05)
+- **증상**: 환경 변수가 설정되지 않아 GitHub API가 익명으로 호출되어 할당량 초과 에러 발생. 또한 로컬에서 `npm run dev` 구동 시 `/api/github`에 대한 API 프록시 서버가 부재하여 `404 Not Found` 에러 발생.
+- **해결**:
+  1. 루트 디렉토리에 [`.env`](file:///Users/byunmose/Desktop/git_auto_info/.env) 파일을 구성하고 `GITHUB_TOKEN` 환경변수 연동 지원.
+  2. [vite.config.js](file:///Users/byunmose/Desktop/git_auto_info/vite.config.js)에 `loadEnv` 및 커스텀 `local-api-middleware` 개발 서버 미들웨어를 이식하여 로컬에서 백엔드 프록시 함수([api/github.js](file:///Users/byunmose/Desktop/git_auto_info/api/github.js))를 완벽히 에뮬레이션하도록 보완.
+
+---
+*Last Updated: 2026-06-05 14:15*
